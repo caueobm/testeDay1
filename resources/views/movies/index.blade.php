@@ -17,7 +17,7 @@
 
 
                 <div class="card-footer text-end">
-                    <a href="{{ route('costumer.create') }}" class="btn btn-primary">Cadastre-se</a>
+                    <a href="{{ route('movie.create') }}" class="btn btn-primary">Cadastre-se</a>
                 </div>
                 <h2 class="text-center">Filmes</h2>
             </div>
