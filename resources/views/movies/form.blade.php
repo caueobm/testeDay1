@@ -81,9 +81,15 @@
                         <textarea class="form-control" type="text" name="description"></textarea>
                     </div>
 
+                    <div class="form-group">
+                        <label for="vehicle1">Você é fã</label>
+                        <input type="checkbox" id="fan" name="fan">
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Salvar</button>
 
                 </form>
+
 
             </div>
 

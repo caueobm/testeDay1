@@ -20,8 +20,10 @@ return new class extends Migration
             $table->integer('duration');
             $table->date('release_date');
             $table->timestamps();
+            $table->boolean('fan');
         });
     }
+
 
     /**
      * Reverse the migrations.

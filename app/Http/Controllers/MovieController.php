@@ -50,6 +50,7 @@ class MovieController extends Controller
         $movie->age_indication = $data['age_indication'];
         $movie->duration = $data['duration'];
         $movie->release_date = $data['release_date'];
+        $movie->fan = $data['fan'];
 
         $movie->save();
 
@@ -57,5 +58,6 @@ class MovieController extends Controller
 
 
     }
+
 
 }

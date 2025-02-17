@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MovieController;
@@ -25,6 +26,14 @@ Route::prefix('filmes')->group(function () {
     Route::get('/criar',    [MovieController::class, 'form'])->name('movie.create');
     Route::post('/salvar',  [MovieController::class, 'save'])->name('movie.save');
 
+
 });
 
+Route::prefix('clientes')->group(function () {
 
+    Route::get('/',         [CustomerController::class, 'index']);
+    Route::get('/criar',    [CustomerController::class, 'form'])->name('customer.create');
+    Route::post('/salvar',  [CustomerController::class, 'save'])->name('customer.save');
+
+
+});
