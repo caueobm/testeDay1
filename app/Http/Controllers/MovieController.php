@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Controle de Filmes
@@ -16,7 +17,8 @@ class MovieController extends Controller
      *
      * @return void
      */
-    public function index() {
+    public function index()
+    {
 
         $movies = Movie::orderBy('id', 'desc')->get();
 
@@ -30,7 +32,8 @@ class MovieController extends Controller
      *
      * @return void
      */
-    public function form() {
+    public function form()
+    {
         return view('movies/form');
     }
 
@@ -39,7 +42,24 @@ class MovieController extends Controller
      *
      * @return void
      */
-    public function save(Request $request) {
+    public function save(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|min:10',
+            'category' => 'required|',
+            'age_indication' => 'required',
+            'duration' => 'required|integer',
+            'release_date' => 'required',
+            'fan' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            // dd($validator->messages());
+            return back()->with('messages', $validator->errors())
+                ->withInput();
+        }
 
         $data = $request->all();
 
@@ -55,9 +75,5 @@ class MovieController extends Controller
         $movie->save();
 
         return redirect('filmes/');
-
-
     }
-
-
 }

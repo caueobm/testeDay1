@@ -22,18 +22,19 @@ Route::get('/', function () {
 
 Route::prefix('filmes')->group(function () {
 
-    Route::get('/',         [MovieController::class, 'index']);
+    Route::get('/',         [MovieController::class, 'index'])->name('movie.index');
     Route::get('/criar',    [MovieController::class, 'form'])->name('movie.create');
     Route::post('/salvar',  [MovieController::class, 'save'])->name('movie.save');
-
+    Route::delete('/{id}/delete', [CustomerController::class, 'delete'])->name('movie.delete');
 
 });
 
 Route::prefix('clientes')->group(function () {
 
-    Route::get('/',         [CustomerController::class, 'index']);
+    // ( / = route index)
+    Route::get('/',         [CustomerController::class, 'index'])->name('customer.index');
     Route::get('/criar',    [CustomerController::class, 'form'])->name('customer.create');
     Route::post('/salvar',  [CustomerController::class, 'save'])->name('customer.save');
-
+    Route::delete('/{id}/delete', [CustomerController::class, 'delete'])->name('customer.delete');
 
 });

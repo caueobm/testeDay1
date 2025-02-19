@@ -1,3 +1,2 @@
-Formas diferentes de usar o button
-porque usar redirect em vez de view, vice versa
-pq o fã é numeor em vez de bool
+validation
+template

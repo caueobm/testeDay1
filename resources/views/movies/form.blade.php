@@ -1,109 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Locadora</title>
+<x-blank>
 
-    <style>
+    <body>
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+        <div class="container">
 
-        .form-label {
-            font-weight: 500;
-        }
+            <div class="card">
 
-    </style>
+                <div class="card-header">
 
-<nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-  </nav>
+                    <h2 class="text-center">Crie um novo filme</h2>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form class="form" action="{{ route('movie.save') }}" method="post" required>
+
+                        @csrf
+
+                        <div class="form-group">
+                            <label class="form-label" for="name">Nome do Filme</label>
+                            <input class="form-control" type="text" name="name" id="name"
+                                value="{{ old('name') }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="Category">Categoria</label>
+                            <select class="form-control" name="category" id="Category" required>
+                                <option value="">Selecione uma opção</option>
+                                <option value="1" {{ old('category') == 1 ? 'selected' : '' }}>Ação</option>
+                                <option value="2" {{ old('category') == 2 ? 'selected' : '' }}>Aventura</option>
+                                <option value="3" {{ old('category') == 3 ? 'selected' : '' }}>Terror</option>
+                                <option value="4" {{ old('category') == 4 ? 'selected' : '' }}>Romance</option>
+                                <option value="5" {{ old('category') == 5 ? 'selected' : '' }}>Misterio</option>
+                                <option value="6" {{ old('category') == 6 ? 'selected' : '' }}>Comedia</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="age_indication">Faixa Etária</label>
+                            <input class="form-control" type="integer" name="age_indication" id="age_indication"
+                                value="{{ old('age_indication') }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="duration">Duração</label>
+                            <input class="form-control" type="number" name="duration" id="duration"
+                                value="{{ old('duration') }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="release_date">Data de Lançamento</label>
+                            <input class="form-control" type="date" name="release_date" id="release_date"
+                                value="{{ old('release_date') }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="description">Descrição</label>
+                            <textarea class="form-control" type="text" name="description" id="description" required>{{ old('description') }} </textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fan">Você é fã</label>
+                            <input type="checkbox" id="fan" name="fan" value="on"
+                                {{ old('fan') == 'on' ? 'checked' : '' }} required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+
+                    </form>
 
 
-</head>
-<body>
-
-    <div class="container">
-
-        <div class="card">
-
-            <div class="card-header">
-
-                <h2 class="text-center">Crie um novo filme</h2>
-
-            </div>
-
-            <div class="card-body">
-
-                {{-- // name
-                // descripition
-                // category
-                // age_indication
-                // duration
-                // release_date --}}
-
-                <form class="form" action="{{ route('movie.save') }}" method="post">
-
-                    @csrf
-
-                    <div class="form-group">
-                        <label class="form-label">Nome do Filme</label>
-                        <input class="form-control" type="text" name="name">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Categoria</label>
-                        <select class="form-control" name="category">
-                            <option value="">Selecione uma opção</option>
-                            <option value="action">Ação</option>
-                            <option value="adventure">Aventura</option>
-                            <option value="horror">Terror</option>
-                            <option value="romance">Romance</option>
-                            <option value="mistery">Misterio</option>
-                            <option value="comedy">Comedia</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Faixa Etária</label>
-                        <input class="form-control" type="integer" name="age_indication">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Duração</label>
-                        <input class="form-control" type="number" name="duration">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Data de Lançamento</label>
-                        <input class="form-control" type="date" name="release_date">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Descrição</label>
-                        <textarea class="form-control" type="text" name="description"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="vehicle1">Você é fã</label>
-                        <input type="checkbox" id="fan" name="fan">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-
-                </form>
-
+                </div>
 
             </div>
 
         </div>
-
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</body>
-</html>
+</x-blank>
