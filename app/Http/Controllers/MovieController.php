@@ -17,10 +17,10 @@ class MovieController extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $movies = Movie::orderBy('id', 'desc')->get();
+        $movies = Movie::orderBy('id', 'desc')->paginate($request->pagination ?? 10);
 
         return view('movies/index', [
             'movies' => $movies
@@ -57,7 +57,7 @@ class MovieController extends Controller
 
         if ($validator->fails()) {
             // dd($validator->messages());
-            return back()->with('messages', $validator->errors())
+            return back()->withErrors($validator->errors())
                 ->withInput();
         }
 
@@ -74,6 +74,26 @@ class MovieController extends Controller
 
         $movie->save();
 
-        return redirect('filmes/');
+        return redirect('filmes/')->withSuccess("Filme cadastrado com sucesso");;
+    }
+
+    public function delete($id)
+    {
+
+        try {
+
+            $movie = Movie::find($id);
+            if ($movie == null){
+                return redirect()->route('movie.index')->withErrors("Erro ao deletar o Filme");
+            }
+
+            else {
+                $movie->delete();
+                return redirect()->route('movie.index')->withSuccess("Filme deletado com sucesso!");
+
+            }
+        } catch (\Throwable $th) {
+        }
     }
 }
+

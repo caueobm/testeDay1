@@ -10,9 +10,9 @@
 </head>
 
 <body>
-    <x-nav />
-    <div class="container">
 
+    <div class="container">
+        <x-nav />
         @include('components.alert')
 
         {{ $slot }}

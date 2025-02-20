@@ -19,7 +19,7 @@ class CustomerController extends Controller
     public function index()
     {
 
-        $customers = Customer::orderBy('id', 'desc')->get();
+        $customers = Customer::orderBy('id', 'desc')->paginate($request->pagination ?? 10);;
 
         $data =  [
             'customers' => $customers
@@ -54,14 +54,14 @@ class CustomerController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
-            'birth_age' => 'required|integer|',
+            'birth_age' => 'required|',
             'tel' => 'required',
             'inadimplencia' => 'required'
         ]);
 
         if ($validator->fails()) {
             // dd($validator->messages());
-            return back()->with('messages', $validator->errors())
+            return back()->withErrors( $validator->errors())
                 ->withInput();
         }
         $data = $request->all();
@@ -75,24 +75,27 @@ class CustomerController extends Controller
 
         $customer->save();
 
-        return redirect('clientes/');
+        return redirect()->route('customer.index')->withSuccess("Cliente cadastrado com sucesso");
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
 
         try {
 
             $user = Customer::find($id);
 
-            $user->delete();
-            if($user == null)
-            return redirect()->route('customer.index')->withSuccess();
 
-            else
-            return redirect()->route('customer.index')->withErrors($user);
+            if ($user == null)
+                return redirect()->route('customer.index')->withErrors("Erro ao deletar o Usuário");
 
+
+            else {
+                $user->delete();
+                return redirect()->route('customer.index')->withSuccess("Usuário deletado com sucesso!");
+
+            }
         } catch (\Throwable $th) {
-
         }
     }
 }
