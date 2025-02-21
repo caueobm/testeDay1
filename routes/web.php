@@ -21,19 +21,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('filmes')->group(function () {
+Route::prefix('filmes')->name("movie.")->group(function () {
 
-    Route::get('/',         [MovieController::class, 'index'])->name('movie.index');
-    Route::get('/criar',    [MovieController::class, 'form'])->name('movie.create');
-    Route::post('/salvar',  [MovieController::class, 'save'])->name('movie.save');
-    Route::delete('/{id}/delete', [MovieController::class, 'delete'])->name('movie.delete');
+    Route::get('/',               [MovieController::class, 'index'])->name('index');
+    Route::get('/criar',          [MovieController::class, 'createOrEdit'])->name('create');
+    Route::get('/{id}/editar',    [MovieController::class, 'createOrEdit'])->name('edit');
+
+    Route::post('/salvar',        [MovieController::class, 'save'])->name('save');
+    Route::put('/salvar',         [MovieController::class, 'save'])->name('update');
+    Route::delete('/{id}/deletar',[MovieController::class, 'delete'])->name('delete');
 });
 
-Route::prefix('clientes')->group(function () {
+Route::prefix('clientes')->name("customer.")->group(function () {
 
-    // ( / = route index)
-    Route::get('/',         [CustomerController::class, 'index'])->name('customer.index');
-    Route::get('/criar',    [CustomerController::class, 'form'])->name('customer.create');
-    Route::post('/salvar',  [CustomerController::class, 'save'])->name('customer.save');
-    Route::delete('/{id}/delete', [CustomerController::class, 'delete'])->name('customer.delete');
+    Route::get('/',                 [CustomerController::class, 'index'])->name('index');
+    Route::get('/criar',            [CustomerController::class, 'createOrEdit'])->name('create');
+    Route::get('/{id}/editar',      [CustomerController::class, 'createOrEdit'])->name('edit');
+
+    Route::post('/salvar',          [CustomerController::class, 'save'])->name('save');
+    Route::put('/salvar',          [CustomerController::class, 'save'])->name('update');
+    Route::delete('/{id}/delete',   [CustomerController::class, 'delete'])->name('delete');
 });

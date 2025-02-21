@@ -16,7 +16,7 @@ class CustomerController extends Controller
      * @return void
      */
 
-    public function index()
+    public function index(Request $request)
     {
 
         $customers = Customer::orderBy('id', 'desc')->paginate($request->pagination ?? 10);;
@@ -27,21 +27,6 @@ class CustomerController extends Controller
 
         return view('customers/index', $data);
     }
-
-
-    /**
-     * Visualizar formulario
-     *
-     * @return view
-     */
-
-    public function form()
-    {
-        return view('customers/form');
-    }
-
-
-
 
     /**
      * Salvar Costumer no banco de dados
@@ -66,7 +51,7 @@ class CustomerController extends Controller
         }
         $data = $request->all();
 
-        $customer = new Customer;
+        $customer = Customer::findOrNew($request->id);
         $customer->name = $data['name'];
         $customer->email = $data['email'];
         $customer->birth_age = $data['birth_age'];
@@ -75,27 +60,36 @@ class CustomerController extends Controller
 
         $customer->save();
 
-        return redirect()->route('customer.index')->withSuccess("Cliente cadastrado com sucesso");
+        return redirect()->route('customer.index')->withSuccess($request->id ? "Cliente atualizado com sucesso" : "Cliente cadastrado com sucesso" );
     }
-
     public function delete($id)
     {
-
         try {
-
             $user = Customer::find($id);
-
-
             if ($user == null)
                 return redirect()->route('customer.index')->withErrors("Erro ao deletar o Usuário");
-
-
             else {
                 $user->delete();
                 return redirect()->route('customer.index')->withSuccess("Usuário deletado com sucesso!");
-
             }
         } catch (\Throwable $th) {
         }
     }
+
+
+    public function createOrEdit($id = null)
+    {
+        $customer = Customer::findOrNew($id);
+
+        return $this->form($customer);
+    }
+
+
+    private function form(Customer $customer)
+    {
+        return view('customers/form', [
+            'customer' => $customer
+        ]);
+    }
+
 }

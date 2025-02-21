@@ -19,22 +19,11 @@ class MovieController extends Controller
      */
     public function index(Request $request)
     {
-
         $movies = Movie::orderBy('id', 'desc')->paginate($request->pagination ?? 10);
 
         return view('movies/index', [
             'movies' => $movies
         ]);
-    }
-
-    /**
-     * Redirecionar para a tela do formulario
-     *
-     * @return void
-     */
-    public function form()
-    {
-        return view('movies/form');
     }
 
     /**
@@ -56,14 +45,13 @@ class MovieController extends Controller
         ]);
 
         if ($validator->fails()) {
-            // dd($validator->messages());
             return back()->withErrors($validator->errors())
                 ->withInput();
         }
 
         $data = $request->all();
 
-        $movie = new Movie;
+        $movie = Movie::findOrNew($request->id);
         $movie->name = $data['name'];
         $movie->description = $data['description'];
         $movie->category = $data['category'];
@@ -74,26 +62,64 @@ class MovieController extends Controller
 
         $movie->save();
 
-        return redirect('filmes/')->withSuccess("Filme cadastrado com sucesso");;
+        return redirect()->route('movie.index')->withSuccess($request->id ? "Filme atualizado com sucesso" : "Filme cadastrado com sucesso");;
     }
 
     public function delete($id)
     {
-
         try {
-
             $movie = Movie::find($id);
-            if ($movie == null){
+            if ($movie == null) {
                 return redirect()->route('movie.index')->withErrors("Erro ao deletar o Filme");
-            }
-
-            else {
+            } else {
                 $movie->delete();
                 return redirect()->route('movie.index')->withSuccess("Filme deletado com sucesso!");
-
             }
         } catch (\Throwable $th) {
         }
     }
-}
 
+    public function createOrEdit($id = null)
+    {
+        $movie = Movie::findOrNew($id);
+
+        return $this->form($movie);
+    }
+
+    /**
+     * Redirecionar para a tela do formulario
+     *
+     * @return void
+     */
+    private function form(Movie $movie)
+    {
+        return view('movies/form', [
+            'movie' => $movie
+        ]);
+    }
+
+
+    // public function update(Request $request, $id)
+    // {
+    //     $validatedData = $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'description' => 'required|string|min:1x0',
+    //         'category' => 'required|',
+    //         'age_indication' => 'required',
+    //         'duration' => 'required|integer',
+    //         'release_date' => 'required',
+    //         'fan' => 'required'
+    //     ]);
+    //     try {
+    //         $movie = Movie::findOrFail($id);
+
+    //         if ($movie == null) {
+    //             return redirect()->route('movie.index')->withErrors("Erro ao encontrar Filme");
+    //         } else {
+    //             $movie->update($validatedData);
+    //             return response()->json(['message' => 'User profile updated successfully'], 200);
+    //         }
+    //     } catch (\Throwable $th) {
+    //     }
+    // }
+}
