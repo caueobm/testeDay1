@@ -35,7 +35,6 @@
                         </div>
                     </div>
 
-
                     <div class="form-group">
                         <label for ="birth_age" class="form-label">Data de Nascimento</label>
                         <input class="form-control" type="date" id="birth_age" name="birth_age"

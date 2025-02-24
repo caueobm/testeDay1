@@ -4,7 +4,7 @@ use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MovieController;
-use App\Models\Movie;
+use App\Http\Controllers\RentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,4 +41,14 @@ Route::prefix('clientes')->name("customer.")->group(function () {
     Route::post('/salvar',          [CustomerController::class, 'save'])->name('save');
     Route::put('/salvar',          [CustomerController::class, 'save'])->name('update');
     Route::delete('/{id}/delete',   [CustomerController::class, 'delete'])->name('delete');
+});
+
+Route::prefix('alugueis')->name("rent.")->group(function () {
+
+    Route::get('/{id}',                     [RentController::class, 'index'])->name('index');
+    Route::get('{id}/alugar',           [RentController::class, 'create'])->name('create');
+
+    Route::post('/salvar',              [RentController::class, 'save'])->name('save');
+
+
 });

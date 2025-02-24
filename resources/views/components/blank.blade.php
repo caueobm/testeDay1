@@ -7,6 +7,15 @@
     , initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+
+    <style>
+
+        .table-buttons{
+            display: flex;
+            justify-content: center;
+            gap:10 px;
+        }
+    </style>
 </head>
 
 <body>
