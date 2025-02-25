@@ -50,7 +50,7 @@
                     <div class="form-group">
                         <label for="inadimplencia">Você é inadimplente</label>
                         <input type="checkbox" id="inadimplencia" name="inadimplencia" value="on"
-                            {{ old('inadimplencia', $customer->inadimplencia) == 'on' ? 'checked' : '' }} required>
+                            {{ old('inadimplencia', $customer->inadimplencia) == 'on' ? 'checked' : '' }}>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Salvar</button>

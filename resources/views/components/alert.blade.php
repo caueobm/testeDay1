@@ -1,3 +1,5 @@
+
+{{-- no return de um função podemos usar withSuccess e withError aqui embaixo  --}}
 @php
     $messagesError = session('errors')?->getMessages();
     $messagesSuccess = session('success');
@@ -11,7 +13,6 @@
 
         @endforeach
     </div>
-
 @endif
 
 @if ($messagesSuccess)

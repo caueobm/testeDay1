@@ -52,7 +52,7 @@
                                 <td>{{ $movie->fan ? 'Sim' : 'Não' }}</td>
                                 <td>
                                     <div class= "table-buttons">
-                                    <form action="{{ route('movie.delete', $movie->id) }}" method="POST">
+                                    <form action="{{ route('movie.delete', $movie->id, ) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">

@@ -23,7 +23,7 @@
                         <div class="form-group">
                             <label for="email" class="form-label">Digite seu Email</label>
                             <input class="form-control" type="text" id="email" name="email"
-                                value="{{ old('email') }}" required>
+                            value="{{ old('email', $customer->email) }}" required>
                         <div class="invalid-feedback">
                         </div>
                         <button type="submit" class="btn btn-primary">Salvar</button>

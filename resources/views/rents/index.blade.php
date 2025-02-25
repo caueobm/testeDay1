@@ -6,6 +6,7 @@
 
             <div class="card-header">
 
+
                 <h2 class="text-center">Filmes</h2>
                 <div class="card-text">
                     <form class="filter" method="get">
@@ -53,7 +54,8 @@
                                 <td>
                                     <div class= "table-buttons">
                                         {{-- arrumer botao delete dos alugueis --}}
-                                        <form action="{{ route('movie.delete', $movie->id) }}" method="POST">
+                                        <form action="{{ route('rent.delete',[$movie->id, $customer->id]) }}" method="post">
+
                                             @csrf
                                             @method('DELETE')
                                         <button type="submit" class="btn btn-danger">

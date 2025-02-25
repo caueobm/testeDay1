@@ -76,14 +76,12 @@ class CustomerController extends Controller
         }
     }
 
-
     public function createOrEdit($id = null)
     {
         $customer = Customer::findOrNew($id);
 
         return $this->form($customer);
     }
-
 
     private function form(Customer $customer)
     {

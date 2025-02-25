@@ -50,5 +50,6 @@ Route::prefix('alugueis')->name("rent.")->group(function () {
 
     Route::post('/salvar',              [RentController::class, 'save'])->name('save');
 
+    Route::delete('/{movieId}/delete/{customerId}',   [RentController::class, 'delete'])->name('delete');
 
 });
