@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Customer;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -89,5 +90,4 @@ class CustomerController extends Controller
             'customer' => $customer
         ]);
     }
-
 }
