@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,11 +19,10 @@ class CustomerFactory extends Factory
     {
 
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
             'birth_age' => fake()->date(),
             'tel' => '62984963025',
             'inadimplencia' => true,
+            'user_id' => User::all()->random()->id
         ];
     }
 }

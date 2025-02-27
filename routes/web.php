@@ -59,8 +59,10 @@ Route::prefix('alugueis')->name("rent.")->group(function () {
 });
 
 Route::prefix('entrar')->name("login.")->group(function () {
-    Route::get('/',                           [LoginController::class, 'index'])->name('index');
-    Route::get('/logar',                       [LoginController::class, 'login'])->name('login');
-    Route::get('logout',                        [LoginController::class, 'logout'])->name('logout');
-    Route::get('/authenticate',               [LoginController::class, 'authenticate'])->name('authenticate');
+    Route::get('/',                                  [LoginController::class, 'index'])->name('index');
+    Route::get('/logar',                             [LoginController::class, 'login'])->name('login');
+    Route::get('/cadastra-se',                       [LoginController::class, 'signup'])->name('signup');
+    Route::post('/salvar',                           [LoginController::class, 'save'])->name('save');
+    Route::get('logout',                             [LoginController::class, 'logout'])->name('logout');
+    Route::get('/authenticate',                      [LoginController::class, 'authenticate'])->name('authenticate');
 });

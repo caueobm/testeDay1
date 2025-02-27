@@ -21,9 +21,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="email" class="form-label">Digite seu Email</label>
-                            <input class="form-control" type="text" id="email" name="email"
-                            value="{{ old('email', $customer->email) }}" required>
+                            <input class="form-control" type="hidden" id="email" name="email"
+                            value="{{ Auth::user()->email }}" required>
                         <div class="invalid-feedback">
                         </div>
                         <button type="submit" class="btn btn-primary">Salvar</button>

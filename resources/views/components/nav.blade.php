@@ -22,6 +22,9 @@
                     <li class="nav-item">
                         <a href="{{ route('login.login') }}" class="btn btn-primary">Login</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('login.signup') }}" class="btn btn-primary">Cadastre-se</a>
+                    </li>
                 @else
                     <li class="nav-item">
                         <a href="{{ route('login.logout') }}" class="btn btn-primary">Logout</a>

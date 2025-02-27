@@ -1,0 +1,78 @@
+<x-blank>
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2 class="text-center">Registra-se</h2>
+
+
+
+            </div>
+
+            <div class="card-body">
+
+                <form class="form" action="{{ route('login.save') }}" method="post" required>
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="name" class="form-label">Nome</label>
+                        <input class="form-control" type="text" name="name" id="name"
+                            value="{{ old('name') }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input class="form-control" type="text" id="email" name="email"
+                            value="{{ old('email') }}" required>
+                        <div class="invalid-feedback">
+                            Por favor digite seu seu Email.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for ="birth_age" class="form-label">Data de Nascimento</label>
+                        <input class="form-control" type="date" id="birth_age" name="birth_age"
+                            value="{{ old('birth_age') }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for ="tel" class="form-label">Telefone</label>
+                        <input class="form-control" type="tel" name="tel" id="tel"
+                            value="{{ old('tel') }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inadimplencia">Você é inadimplente</label>
+                        <input type="checkbox" id="inadimplencia" name="inadimplencia" value="on"
+                            {{ old('inadimplencia') == 'on' ? 'checked' : '' }}>
+                    </div>
+
+                    <div class="form-group">
+                        <label for ="password" class="form-label">Senha</label>
+                        <input class="form-control" type="password" id="password" name="password"required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for ="password_confirmation" class="form-label">Confirme sua Senha</label>
+                        <input class="form-control" type="password_confirmation" id="password_confirmation" name="password_confirmation"required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="is_admin">Você é admin</label>
+                        <input type="checkbox" id="is_admin" name="is_admin" value="on" {{ old('is_admin') == 'on' ? 'checked' : '' }}>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+
+                </form>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</x-blank>

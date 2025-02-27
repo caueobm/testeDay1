@@ -19,6 +19,9 @@ class CustomerController extends Controller
 
     public function index(Request $request)
     {
+// SELECT * from customers
+// JOIN users ON (name, email)
+// WHERE users.id = customers.user_id
 
         $customers = Customer::orderBy('id', 'desc')->paginate($request->pagination ?? 10);;
 
@@ -61,7 +64,7 @@ class CustomerController extends Controller
 
         $customer->save();
 
-        return redirect()->route('customer.index')->withSuccess($request->id ? "Cliente atualizado com sucesso" : "Cliente cadastrado com sucesso" );
+        return redirect()->route('customer.index')->withSuccess($customer->id ? "Cliente atualizado com sucesso" : "Falha ao cadastrar cliente" );
     }
     public function delete($id)
     {

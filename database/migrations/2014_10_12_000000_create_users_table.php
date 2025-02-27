@@ -16,12 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignId('customer_id');
             $table->boolean('is_admin')->deafult('false');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
