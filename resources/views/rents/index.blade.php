@@ -54,7 +54,7 @@
                                 <td>
                                     <div class= "table-buttons">
                                         {{-- arrumer botao delete dos alugueis --}}
-                                        <form action="{{ route('rent.delete',[$movie->id, $customer->id]) }}" method="post">
+                                        <form action="{{ route('rent.delete',[$movie->id, $user->id]) }}" method="post">
 
                                             @csrf
                                             @method('DELETE')

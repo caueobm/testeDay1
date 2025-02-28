@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureTokenIsValid
@@ -13,15 +14,12 @@ class EnsureTokenIsValid
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle($request, Closure $next)
     {
-        dd($request->input('token'),$next);
-        dd();
-
-        if ($request->input('token') !== 'my-secret-token') {
-            return redirect('entrar/logar');
+        if (Auth::check()) {
+            return $next($request);
+        } else {
+            return redirect()->route('login.login')->withErrors("Você precisa fazer login!");
         }
-
-        return $next($request);
     }
 }

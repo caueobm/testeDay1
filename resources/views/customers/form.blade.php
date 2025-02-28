@@ -1,4 +1,4 @@
-<x-blank>
+{{-- <x-blank>
 
     <div class="container">
 
@@ -63,4 +63,4 @@
         </div>
 
     </div>
-</x-blank>
+</x-blank> --}}

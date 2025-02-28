@@ -19,11 +19,17 @@ class CustomerController extends Controller
 
     public function index(Request $request)
     {
-// SELECT * from customers
-// JOIN users ON (name, email)
-// WHERE users.id = customers.user_id
+        //$customers = Customer::orderBy('id', 'desc')->paginate($request->pagination ?? 10);;
+        // select *
+        // from customers c
+        // LEFT JOIN  users u
+        // ON c.user_id = u.id
 
-        $customers = Customer::orderBy('id', 'desc')->paginate($request->pagination ?? 10);;
+
+        $customers = Customer::select('customers.*', 'users.name', 'users.email')
+        ->leftJoin('users', 'customers.user_id', 'users.id')
+        ->orderBy('customers.id', 'desc')
+        ->paginate($request->pagination ?? 10);
 
         $data =  [
             'customers' => $customers
@@ -45,7 +51,6 @@ class CustomerController extends Controller
             'email' => 'required|email|unique:users',
             'birth_age' => 'required|',
             'tel' => 'required',
-            'inadimplencia' => 'required'
         ]);
 
         if ($validator->fails()) {

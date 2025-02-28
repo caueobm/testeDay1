@@ -72,7 +72,7 @@
                                         </button>
                                     </form>
 
-                                        <a href="{{ route('customer.edit', $customer->id) }}" class="btn btn-light">
+                                        <a href="{{ route('login.edit', $customer->id) }}" class="btn btn-light">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                                                 <path
@@ -106,7 +106,7 @@
 
             <div class="card-footer text-end">
                 {{ $customers }}
-                <a href="{{ route('customer.create') }}" class="btn btn-primary">Criar Cliente</a>
+                <a href="{{ route('login.signup') }}" class="btn btn-primary">Criar Cliente</a>
             </div>
 
 

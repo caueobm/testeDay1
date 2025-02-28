@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Customer extends Model
 {
-    public function movies(): BelongsToMany
-    {
-        return $this->belongsToMany(Movie::class);
-    }
+    // public function movies(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Movie::class);
+    // }
 
     public function user(): HasOne
     {

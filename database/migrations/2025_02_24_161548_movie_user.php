@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customer_movie', function (Blueprint $table) {
+        Schema::create('movie_user', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('customer_id');
             $table->foreignId('movie_id');
+            $table->foreignId('user_id');
         });
     }
 

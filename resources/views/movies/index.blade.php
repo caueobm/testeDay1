@@ -46,7 +46,7 @@
                                 <td>{{ $movie->updated_at }}</td>
                                 <td>{{ $movie->fan ? 'Sim' : 'Não' }}</td>
                                 <td>
-                                    @if (Auth::check())
+                                    @if (isset(Auth::user()->is_admin) && Auth::user()->is_admin)
                                     <div class= "table-buttons">
                                         <form action="{{ route('movie.delete', $movie->id) }}" method="POST">
                                             @csrf

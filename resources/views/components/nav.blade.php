@@ -12,9 +12,11 @@
             <a class="navbar-brand" href="#">Locadora</a>
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a href="{{ route('customer.index') }}" class="btn btn-primary">Listar Clientes</a>
-                </li>
+                @if (isset(Auth::user()->is_admin) && Auth::user()->is_admin)
+                    <li class="nav-item">
+                        <a href="{{ route('customer.index') }}" class="btn btn-primary">Listar Clientes</a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <a href="{{ route('movie.index') }}" class="btn btn-primary">Listar Filmes</a>
                 </li>
@@ -31,10 +33,14 @@
                     </li>
                 @endif
 
-
-
-
-
+                @if (Auth::check())
+                <li class="nav-item">
+                    <a href="{{ route('rent.index', Auth::user()->id) }}" class="btn btn-primary">Meus Filmes Alugados</a>
+                </li>
+                @endif
+                @if (isset(Auth::user()->is_admin) && Auth::user()->is_admin)
+                    <label for="">Você é Admin</label>
+                @endif
             </ul>
         </div>
     </nav>

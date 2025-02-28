@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -20,10 +21,10 @@ class MovieController extends Controller
     public function index(Request $request)// O uso do request é apenas para o pagination funcionar?
     {
         $movies = Movie::orderBy('id', 'desc')->paginate($request->pagination ?? 10);
-
         return view('movies/index', [ // Este return redereciona para a mesma página mas com um array dos filmes capturados com o orderBy
             'movies' => $movies
         ]);
+
     }
 
     /**

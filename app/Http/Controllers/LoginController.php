@@ -35,6 +35,8 @@ class LoginController extends Controller
 
 
 
+        }else{
+
         }
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
@@ -54,18 +56,14 @@ class LoginController extends Controller
 
     public function save(Request $request)
     {
-
-
-
         $validator = Validator::make($request->all(),[
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
+            // 'email' => ['required', 'string', 'email,'.auth()->user()->email],
             // 'password' => 'required|password',
             // 'password_confirmation' => 'required_with:password|same:password',
             'birth_age' => 'required|',
             'tel' => 'required',
-            'inadimplencia' => 'required',
-            'is_admin' => 'required'
         ]);
 
         // $table->id('id');
@@ -81,24 +79,42 @@ class LoginController extends Controller
             // dd($validator->messages());
             return back()->withErrors( $validator->errors())
                 ->withInput();
-        }
 
-        $user = new User;
+        $user = User::findOrNew(['user_id' => $request->id]);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $newPassword;
         $user->is_admin = $request->is_admin;
         $user->save();
 
-        $customer = new Customer;
-
+        $customer = Customer::findOrNew($request->id);
         $customer->birth_age = $request->birth_age;
         $customer->tel = $request->tel;
         $customer->inadimplencia = isset($request->inadimplencia) ? 1 : 0;
-        $customer->user_id = isset($user->id) ? 1 : 0;
-
+        $customer->user_id = $user->id;
+        $customer->save();
 
         $this->authenticate($request);
-        return redirect()->route('customer.index')->withSuccess(Auth::check() ? "Cliente autenticado com sucesso" : "Falha ao autenticar cliente" );
+        return redirect()->route('movie.index')->withSuccess(Auth::check() ? "Cliente autenticado com sucesso" : "Falha ao autenticar cliente" );
+        }
+    }
+
+    public function signupOrEdit($id = null)
+    {
+
+
+        $customer = Customer::findOrNew($id);
+        $user = User::Where('id', $customer->user_id)->first();
+        // $user = User::findOrNew($);
+        return $this->form($customer, $user);
+    }
+
+    private function form(Customer $customer, $user)
+    {
+
+        return view('users.signup', [
+            'customer' => $customer,
+            'user' => $user
+        ]);
     }
 }

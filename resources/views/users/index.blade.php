@@ -1,4 +1,4 @@
-<x-blank>
+{{-- <x-blank>
     <style>
         .pagination {
             display: inline-block;
@@ -115,4 +115,4 @@
         </div>
 
     </div>
-</x-blank>
+</x-blank> --}}
