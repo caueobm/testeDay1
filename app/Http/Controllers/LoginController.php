@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class LoginController extends Controller
 {
@@ -32,11 +33,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('filmes');
-
-
-
-        }else{
-
+        } else {
         }
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
@@ -56,31 +53,39 @@ class LoginController extends Controller
 
     public function save(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
+            // 'email' => 'required|email|unique:users',
+            'email' => [
+                'required',
+                Rule::unique('users')->ignore($request->id),
+            ],
             // 'email' => ['required', 'string', 'email,'.auth()->user()->email],
             // 'password' => 'required|password',
             // 'password_confirmation' => 'required_with:password|same:password',
             'birth_age' => 'required|',
             'tel' => 'required',
+
+        ],
+        $messages = [
+            'email.required' => 'Você precisa escolher um email',
+            'email.unique' => 'Esse email já esta em uso',
+            'birth_age.required' => 'Você precisa escolher uma data de nascimento',
+            'tel.required' => 'Você precisa escolher um telefone',
+
         ]);
 
-        // $table->id('id');
-        // $table->string('name');
-        // $table->string('email')->unique();
-        // $table->string('password');
-        // $table->boolean('is_admin')->deafult('false');
-        // $table->timestamps();
-
-        $newPassword = Hash::make($request->password);
 
         if ($validator->fails()) {
             // dd($validator->messages());
-            return back()->withErrors( $validator->errors())
+            return back()->withErrors($validator->errors())
                 ->withInput();
+        }
 
-        $user = User::findOrNew(['user_id' => $request->id]);
+
+        $newPassword = Hash::make($request->password);
+        $user = User::findOrNew($request->id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $newPassword;
@@ -93,10 +98,8 @@ class LoginController extends Controller
         $customer->inadimplencia = isset($request->inadimplencia) ? 1 : 0;
         $customer->user_id = $user->id;
         $customer->save();
-
         $this->authenticate($request);
-        return redirect()->route('movie.index')->withSuccess(Auth::check() ? "Cliente autenticado com sucesso" : "Falha ao autenticar cliente" );
-        }
+        return redirect()->route('movie.index')->withSuccess(Auth::check() ? "Cliente autenticado com sucesso" : "Falha ao autenticar cliente");
     }
 
     public function signupOrEdit($id = null)

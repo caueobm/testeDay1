@@ -31,18 +31,18 @@ class RentController extends Controller
     public function create($id) //função para um botao redirecionar para alugar um filme, o $id é apenas para levar o id do filme e conseguir printar o nome do filme para o usuário na página seguinte
     {
         $movie = Movie::find($id);
-
+        $users = User::orderBy('email', 'asc')->get()->toArray();
         return view('rents/form', [
-            'movie' => $movie
+            'movie' => $movie,
+            'users' => $users
         ]);
     }
 
     public function save(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|email'
+            'id' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -53,7 +53,8 @@ class RentController extends Controller
         $data = $request->all();
         // verifica se existe um filme com esse nome e um cliente com esse email
         $movie = Movie::where('name', $data['name'])->first();
-        $user = User::where('email', $data['email'])->first();
+        $user = User::find($data['id']);
+
         if (!$movie) {
             return back()->withErrors("Erro ao encontrar o filme");
         }

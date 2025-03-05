@@ -30,7 +30,6 @@ class CustomerController extends Controller
         ->leftJoin('users', 'customers.user_id', 'users.id')
         ->orderBy('customers.id', 'desc')
         ->paginate($request->pagination ?? 10);
-
         $data =  [
             'customers' => $customers
         ];
@@ -45,14 +44,12 @@ class CustomerController extends Controller
      */
     public function save(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'birth_age' => 'required|',
             'tel' => 'required',
         ]);
-
         if ($validator->fails()) {
             // dd($validator->messages());
             return back()->withErrors( $validator->errors())
@@ -68,7 +65,6 @@ class CustomerController extends Controller
         $customer->inadimplencia = isset($data['inadimplencia']) ? 1 : 0;
 
         $customer->save();
-
         return redirect()->route('customer.index')->withSuccess($customer->id ? "Cliente atualizado com sucesso" : "Falha ao cadastrar cliente" );
     }
     public function delete($id)

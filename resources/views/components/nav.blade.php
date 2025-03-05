@@ -20,12 +20,18 @@
                 <li class="nav-item">
                     <a href="{{ route('movie.index') }}" class="btn btn-primary">Listar Filmes</a>
                 </li>
+                @php
+                    $user = [
+                            "name" => "name",
+                            "email" => "email",
+                        ];
+                @endphp
                 @if (!Auth::check())
                     <li class="nav-item">
                         <a href="{{ route('login.login') }}" class="btn btn-primary">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('login.signup') }}" class="btn btn-primary">Cadastre-se</a>
+                        <a href="{{ route('login.signup', $user) }}" class="btn btn-primary">Cadastre-se</a>
                     </li>
                 @else
                     <li class="nav-item">

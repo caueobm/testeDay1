@@ -23,20 +23,37 @@
                     @method($customer->id ? 'PUT' : 'POST')
                     @csrf
 
+
+
                     <input type="hidden" name="id" value="{{$customer->id}}">
                     <div class="form-group">
                         <label for="name" class="form-label">Nome</label>
-                        <input class="form-control" type="text" name="name" id="name"
-                        value="{{ old('name', $user->name) }}" required>
-                    </div>
+                        @if ($user)
+                            <input class="form-control" type="text" name="name" id="name"
+                            value="{{ old('name', $user->name) }}" required>
 
-                    <div class="form-group">
-                        <label for="email" class="form-label">Email</label>
-                        <input class="form-control" type="text" id="email" name="email"
-                            value="{{ old('email', $user->email) }}" required>
-                        <div class="invalid-feedback">
-                            Por favor digite seu seu Email.
-                        </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <input class="form-control" type="text" id="email" name="email"
+                                    value="{{ old('email', $user->email) }}" required>
+                                <div class="invalid-feedback">
+                                    Por favor digite seu seu Email.
+                                </div>
+                            </div>
+
+                        @else
+                            <input class="form-control" type="text" name="name" id="name"
+                            value="{{ old('name') }}" required>
+
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <input class="form-control" type="text" id="email" name="email"
+                                    value="{{ old('email') }}" required>
+                                <div class="invalid-feedback">
+                                    Por favor digite seu seu Email.
+                                </div>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="form-group">
@@ -65,17 +82,24 @@
 
                     <div class="form-group">
                         <label for ="password_confirmation" class="form-label">Confirme sua Senha</label>
-                        <input class="form-control" type="password_confirmation" id="password_confirmation" name="password_confirmation"
+                        <input class="form-control" type="password" id="password_confirmation" name="password_confirmation"
                         value="{{ old('password')}}" required>
                     </div>
-
+                    @if ($user)
+                        <div class="form-group">
+                            <label for="is_admin">Você é admin</label>
+                            <input type="hidden" name="is_admin" id="is_admin" value="false">
+                            <input type="checkbox" id="is_admin" name="is_admin" value="on"
+                            {{ old('is_admin', $user->is_admin) == 'on' ? 'checked' : '' }}>
+                        </div>
+                    @else
                     <div class="form-group">
                         <label for="is_admin">Você é admin</label>
                         <input type="hidden" name="is_admin" id="is_admin" value="false">
                         <input type="checkbox" id="is_admin" name="is_admin" value="on"
-                        {{ old('is_admin', $user->id) == 'on' ? 'checked' : '' }}>
+                        {{ old('is_admin') == 'on' ? 'checked' : '' }}>
                     </div>
-
+                    @endif
                     <button type="submit" class="btn btn-primary">Salvar</button>
 
                 </form>

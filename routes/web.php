@@ -21,7 +21,7 @@ use App\Http\Middleware\IsAdmin;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('clientes/salvar');
 });
 
 Route::prefix('filmes')->name("movie.")->middleware(EnsureTokenIsValid::class)->group(function () {
@@ -59,8 +59,8 @@ Route::prefix('alugueis')->name("rent.")->middleware(EnsureTokenIsValid::class)-
 });
 
 Route::prefix('entrar')->name("login.")->group(function () {
-    Route::get('/',                                  [LoginController::class, 'index'])->name('index');
-    Route::get('/logar',                             [LoginController::class, 'login'])->name('login');
+    // Route::get('/',                                  [LoginController::class, 'index'])->name('index');
+    Route::get('/',                             [LoginController::class, 'login'])->name('login');
     Route::get('/cadastra-se',                       [LoginController::class, 'signupOrEdit'])->name('signup');
     Route::get('{id}/editar',                        [LoginController::class, 'signupOrEdit'])->name('edit');
     Route::post('/salvar',                           [LoginController::class, 'save'])->name('save');
